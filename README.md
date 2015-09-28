@@ -21,7 +21,7 @@ This is a simple class having the two variable which is vertexName (which is the
 This is a simple class having the two variable which has three variables namely firstVertex, secondVertex and edgeWeight. As evident from the name of the variables, this class stores the connecting vertices and the weight of the edge. It has methods to set and return values of these variables. Apart from this, there is another method to compare two edges on the based on the value of edge weight. This method and this class play significant role in the Kruskal’s algorithm where sorted edges are processed one after the other. 
 ####4. GraphUtilities
 It is the most important class of the solution since it has all the algorithmic implementations and the working logic for the program. This class has all static methods. It takes the objects created from the previously three mentioned classes and processes the data and generates desired output. Now the important methods of this class are following : 
-######denseGraphGenerator()
+######denseGraphGenerator
 This method generates a random graph of 5000 vertices with nearly 20 percent connectivity. The working logic for this implementation is to choose a random vertex and check its degree count. If it is less than the maximum degree then choose other random vertices to create edges between them. Till all the vertices are exhausted. This logic has not been kept in an unbounded loop because there can be condition where there are set of vertices connected to each other but each their vertex degree is not 20 and there is no vertex left whose vertex degree is less than 20. This will be a racing condition where such vertices will keep finding other vertices to full fill their degree count and an infinite loop will follow. To avoid such a condition, I have followed a logic to try to fill the vertex degree of an individual vertex. If we are able to do that then the degree count will improve otherwise move ahead to fill the vertex degree of another vertex with remaining vertices in a serial order of one pass only. In this case there will be vertices which will be few vertices left which will have their degree slightly less than 20 but such vertices will be very low. 
 ￼ 
 ######sparseGraphGenerator
@@ -62,19 +62,23 @@ This is the primary class which creates the objects of the classes Graph, Vertex
 
 ##6. Performance Analysis 
 Below is the statistical data for the testing of the three algorithms for pair of Dense and Sparse Graphs. Each of the algorithm has been tested with 25 different graphs of dense and sparse type each. 
-####Running statistics for Dense Graph: 
-                     Dijkstra’s Algorithm     Dijkstra’s Algorithm      Kruskal’s Algorithm 
-                        (Without Heap)             (Using Heap)          (Using Heap Sort)
-                         Running Time               Running Time              Running Time 
-Average Time         17.56646 milliseconds  182.07786 milliseconds     804.42791 milliseconds 
- Worst Time           48.65868 milliseconds  427.36360 milliseconds    1494.99238 milliseconds 
 
-####Running statistics for Sparse Graph: 
-                            Dijkstra’s Algorithm     Dijkstra’s Algorithm      Kruskal’s Algorithm 
-                           (Without Heap)             (Using Heap)          (Using Heap Sort)
-                            Running Time               Running Time              Running Time 
-   Average Time         19.53023 milliseconds  76.93209 milliseconds     6.20184 milliseconds 
-   Worst Time           36.74146 milliseconds  146.98471 milliseconds    22.13404 milliseconds 
+
+
+####Running statistics for Dense Graph: 
+|              | Dijkstra's Algorithm (Without Heap) | Dijkstra's Algorithm (Using Heap) | Kruskal Algorithm (Using Heap Sort) |
+|:------------:|:-----------------------------------:|:---------------------------------:|:-----------------------------------:|
+| Average Time | 17.56646 ms               | 182.07786 ms            | 804.42791 ms              |
+| Worst Time   | 48.65868 ms               | 427.36360 ms            | 1494.99238 ms             |
+
+####Running statistics for Sparse Graph
+
+|              | Dijkstra's Algorithm (Without Heap) | Dijkstra's Algorithm (Using Heap) | Kruskal Algorithm (Using Heap Sort) |
+|:------------:|:-----------------------------------:|:---------------------------------:|:-----------------------------------:|
+| Average Time |             19.53023 ms             |             76.93209 m            |              6.20184 ms             |
+|  Worst Time  |             36.74146 ms             |            146.98471 ms           |             22.13404 ms             |
+ 
+
 ￼ ￼ ￼
 From the above statistics, we can conclude some important remarks. Regarding Dense Matrix we can see the Dijkstra’s Algorithm (Without Heap) is performing significantly better because of the usage of efficient SortedSet. Kruskal’s algorithm is slowest on a dense graph because the possibility of multiple maximum spanning tree increases due to excessive number of edges. The running time of Dijkstra’s algorithm without heap is nearly 10 times faster than the Dijkstra’s algorithm with Heap and more than 30 times faster than the Kruskal’s algorithm 
 On the other hand, when we observe the findings of the Sparse Graph, we find that Kruskal’ algorithm is working extremely fast. This is possible as the due to less number of edges compared to dense graph, the steps of creating a maximum spanning tree in a connected graph decreases as number of checks will reduce to seek the possibility of multiple paths. Coming back to Dijkstra’s algorithm without heap, we can 
